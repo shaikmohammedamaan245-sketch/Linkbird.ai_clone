@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --radius: 1rem;
+}
+
+html, body, #__next { height: 100%; }
+body { @apply bg-white text-gray-900; }
+.container-px { @apply px-4 sm:px-6 lg:px-8; }
+.card { @apply rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/60 dark:supports-[backdrop-filter]:bg-neutral-900/60; }
+.btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-3 py-2 text-sm font-medium border border-neutral-200 hover:shadow-sm transition bg-white text-gray-900; }
+.btn:hover { @apply bg-neutral-50; }
+.btn-primary { @apply btn bg-brand-500 text-white hover:bg-brand-600; }
+.input { @apply w-full rounded-xl border border-neutral-300 dark:border-neutral-700 bg-white/70 dark:bg-neutral-900/70 px-3 py-2 outline-none focus:ring-2 focus:ring-brand-400; }
+.badge { @apply inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium; }
+.badge-success { @apply badge bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300; }
+.badge-warning { @apply badge bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-300; }
+.badge-muted { @apply badge bg-neutral-100 text-neutral-700; }
+.progress { @apply h-2 w-full overflow-hidden rounded-full bg-neutral-200 dark:bg-neutral-800; }
+.progress > span { @apply block h-full bg-brand-500; }
+.skeleton { @apply animate-pulse rounded-xl bg-neutral-200/80 dark:bg-neutral-800/80; }
+.table { @apply w-full border-collapse text-sm; }
+.table th { @apply text-left text-xs font-medium uppercase tracking-wide text-neutral-500; }
+.table td, .table th { @apply p-2.5 border-b border-neutral-200 dark:border-neutral-800; }
+.table tr:hover td { @apply bg-neutral-50/60 dark:bg-neutral-900/60; }
+.sheet { @apply fixed top-0 right-0 h-full w-full sm:w-[560px] p-5 bg-white shadow-2xl border-l border-neutral-200 animate-[slideIn_.2s_ease-out]; }
+@keyframes slideIn { from { transform: translateX(8px); opacity: .5; } to { transform: translateX(0); opacity: 1; } }
