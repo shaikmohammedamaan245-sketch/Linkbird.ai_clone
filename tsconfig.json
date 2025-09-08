@@ -14,7 +14,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "noImplicitAny": false,
+    
     "plugins": [
       {
         "name": "next"
@@ -25,7 +25,7 @@
     },
     "incremental": true
   },
-  "include": ["src", "declarations.d.ts", "src/types"],
+ 
 
   "exclude": ["node_modules"]
 }
