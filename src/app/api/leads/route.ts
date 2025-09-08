@@ -11,6 +11,28 @@ export async function GET(req: NextRequest) {
 
   const PAGE = 20;
 
+  // Demo fallback without DATABASE_URL: serve mock data
+  if (!process.env.DATABASE_URL) {
+    const all = Array.from({ length: 120 }).map((_, i) => ({
+      id: `mock-${i + 1}`,
+      name: `Lead ${i + 1}`,
+      email: `lead${i + 1}@example.com`,
+      company: `Company ${((i % 10) + 1)}`,
+      campaignName: `Campaign ${((i % 5) + 1)}`,
+      status: (['pending','contacted','responded','converted'] as const)[i % 4],
+      lastContactAt: new Date(Date.now() - i * 86400000).toISOString()
+    }));
+    const filtered = all.filter(l =>
+      (!q || l.name.toLowerCase().includes(q.toLowerCase())) &&
+      (!status || l.status === status)
+    );
+    const offset = cursor ? parseInt(Buffer.from(cursor, 'base64').toString('utf8')) : 0;
+    const items = filtered.slice(offset, offset + PAGE);
+    const nextOffset = offset + PAGE < filtered.length ? offset + PAGE : null;
+    const nextCursor = nextOffset !== null ? Buffer.from(String(nextOffset), 'utf8').toString('base64') : null;
+    return NextResponse.json({ items, nextCursor });
+  }
+
   // Decode cursor: base64(JSON.stringify({ lastContactAt: string | null, id: string }))
   let cursorData: { lastContactAt: string | null; id: string } | null = null;
   if (cursor) {

@@ -8,6 +8,24 @@ export async function GET(req: NextRequest) {
   const cursor = searchParams.get("cursor");
   const PAGE = 20;
 
+  // Demo fallback without DATABASE_URL
+  if (!process.env.DATABASE_URL) {
+    const all = Array.from({ length: 60 }).map((_, i) => ({
+      id: `cmp-${i + 1}`,
+      name: `Campaign ${i + 1}`,
+      status: (['draft','active','paused','completed'] as const)[i % 4],
+      totalLeads: 100 + i * 3,
+      successLeads: 20 + (i % 30),
+      responseRate: 10 + (i % 50),
+      createdAt: new Date(Date.now() - i * 172800000).toISOString()
+    }));
+    const offset = cursor ? parseInt(Buffer.from(cursor, 'base64').toString('utf8')) : 0;
+    const items = all.slice(offset, offset + PAGE);
+    const nextOffset = offset + PAGE < all.length ? offset + PAGE : null;
+    const nextCursor = nextOffset !== null ? Buffer.from(String(nextOffset), 'utf8').toString('base64') : null;
+    return NextResponse.json({ items, nextCursor });
+  }
+
   let cursorData: { createdAt: string; id: string } | null = null;
   if (cursor) {
     try {

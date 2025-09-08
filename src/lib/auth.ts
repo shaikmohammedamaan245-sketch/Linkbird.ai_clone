@@ -4,13 +4,16 @@ import { db } from "@/db/client";
 
 const secret = process.env.BETTER_AUTH_SECRET || "dev-secret-change-me";
 
-export const auth = betterAuth({
+const baseConfig: any = {
   secret,
-  database: drizzleAdapter(db),
-  emailAndPassword: {
-    enabled: true
-  },
+  emailAndPassword: { enabled: true },
   plugins: []
-});
+};
+
+if (process.env.DATABASE_URL) {
+  baseConfig.database = drizzleAdapter(db);
+}
+
+export const auth = betterAuth(baseConfig);
 
 export type Session = Awaited<ReturnType<typeof auth.getSession>>;

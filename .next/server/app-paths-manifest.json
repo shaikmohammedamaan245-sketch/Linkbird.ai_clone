@@ -1,9 +1,8 @@
 {
-  "/api/auth/session/route": "app/api/auth/session/route.js",
-  "/api/campaigns/route": "app/api/campaigns/route.js",
-  "/api/leads/route": "app/api/leads/route.js",
   "/api/auth/google/route": "app/api/auth/google/route.js",
+  "/api/auth/session/route": "app/api/auth/session/route.js",
   "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
   "/app/dashboard/page": "app/app/dashboard/page.js",
   "/app/leads/page": "app/app/leads/page.js",
   "/app/campaigns/page": "app/app/campaigns/page.js",
